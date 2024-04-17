@@ -1,0 +1,15 @@
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.exe
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.deps.json
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.runtimeconfig.json
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.dll
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.pdb
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.AssemblyInfoInputs.cache
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.AssemblyInfo.cs
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.csproj.CoreCompileInputs.cache
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.sourcelink.json
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.dll
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\refint\SistemaGestion.dll
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.pdb
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.genruntimeconfig.cache
+C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\TNS INFORMATICA\Programacion NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\ref\SistemaGestion.dll
