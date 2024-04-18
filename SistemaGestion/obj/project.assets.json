@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\cmiranbe\\OneDrive - NTT DATA EMEAL\\TNS INFORMATICA\\Programacion NetCore\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
+      "projectUniqueName": "C:\\Users\\cmiranbe\\OneDrive - NTT DATA EMEAL\\Documentos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
       "projectName": "SistemaGestion",
-      "projectPath": "C:\\Users\\cmiranbe\\OneDrive - NTT DATA EMEAL\\TNS INFORMATICA\\Programacion NetCore\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
+      "projectPath": "C:\\Users\\cmiranbe\\OneDrive - NTT DATA EMEAL\\Documentos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
       "packagesPath": "C:\\Users\\cmiranbe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\cmiranbe\\OneDrive - NTT DATA EMEAL\\TNS INFORMATICA\\Programacion NetCore\\SistemaGestion\\SistemaGestion\\obj\\",
+      "outputPath": "C:\\Users\\cmiranbe\\OneDrive - NTT DATA EMEAL\\Documentos\\SistemaGestion\\SistemaGestion\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cmiranbe\\AppData\\Roaming\\NuGet\\NuGet.Config"
