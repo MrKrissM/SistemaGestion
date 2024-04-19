@@ -22,7 +22,6 @@ public class Cliente
     public string CorreoElectronico { get => correoElectronico; set => correoElectronico = value; }
 
 
-
     public static void RegistrarCliente(List<Cliente> clientes)
     {
         Console.WriteLine("Registro de nuevo cliente");
@@ -40,6 +39,38 @@ public class Cliente
         Console.WriteLine("Cliente registrado exitosamente.");
     }
 
-    // Implementar métodos para actualizar y eliminar clientes
+    public static void ModificarCliente(List<Cliente> clientes, int idCliente, string nuevoNombre, string nuevaDireccion, string nuevoTelefono, string nuevoCorreoElectronico)
+    {
+        Cliente clienteAModificar = clientes.Find(c => c.IdCliente == idCliente);
+
+        if (clienteAModificar != null)
+        {
+            clienteAModificar.Nombre = nuevoNombre;
+            clienteAModificar.Direccion = nuevaDireccion;
+            clienteAModificar.Telefono = nuevoTelefono;
+            clienteAModificar.CorreoElectronico = nuevoCorreoElectronico;
+
+            Console.WriteLine("Cliente modificado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("No se encontró el cliente con el ID especificado.");
+        }
+    }
+
+    public static void EliminarCliente(List<Cliente> clientes, int idCliente)
+    {
+        Cliente clienteAEliminar = clientes.Find(c => c.IdCliente == idCliente);
+
+        if (clienteAEliminar != null)
+        {
+            clientes.Remove(clienteAEliminar);
+            Console.WriteLine("Cliente eliminado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("No se encontró el cliente con el ID especificado.");
+        }
+    }
 }
 

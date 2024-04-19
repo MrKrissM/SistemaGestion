@@ -34,4 +34,37 @@ public class Producto
         Console.WriteLine("Producto creado exitosamente.");
     }
 
+    public static void ModificarProducto(List<Producto> productos, int idProducto, string nuevoNombre, double nuevoPrecio, string nuevaDescripcion)
+    {
+        Producto productoAModificar = productos.Find(p => p.IdProducto == idProducto);
+
+        if (productoAModificar != null)
+        {
+            productoAModificar.Nombre = nuevoNombre;
+            productoAModificar.Precio = nuevoPrecio;
+            productoAModificar.Descripcion = nuevaDescripcion;
+
+            Console.WriteLine("Producto modificado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("No se encontró el producto con el ID especificado.");
+        }
+    }
+
+    public static void EliminarProducto(List<Producto> productos, int idProducto)
+    {
+        Producto productoAEliminar = productos.Find(p => p.IdProducto == idProducto);
+
+        if (productoAEliminar != null)
+        {
+            productos.Remove(productoAEliminar);
+            Console.WriteLine("Producto eliminado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("No se encontró el producto con el ID especificado.");
+        }
+    }
+
 }

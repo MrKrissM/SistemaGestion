@@ -21,6 +21,63 @@ public class Pedido
     public List<Producto> Productos { get => productos; set => productos = value; }
     public double Total { get => total; set => total = value; }
 
-    // Agregar métodos para crear, modificar y cancelar pedidos
-    // Método para calcular el total del pedido
+
+    public Pedido CrearPedido(List<Pedido> pedidos, Cliente cliente, List<Producto> productos)
+    {
+        int nuevoIdPedido = pedidos.Count == 0 ? 1 : pedidos.Max(p => p.IdPedido) + 1;
+        DateTime fechaPedido = DateTime.Now;
+        double totalPedido = CalcularTotal(productos);
+
+        Pedido nuevoPedido = new Pedido(nuevoIdPedido, fechaPedido, cliente, productos, totalPedido);
+        pedidos.Add(nuevoPedido);
+
+        Console.WriteLine("Pedido creado exitosamente.");
+        return nuevoPedido;
+    }
+
+    public void ModificarPedido(List<Pedido> pedidos, int idPedido, Cliente nuevoCliente, List<Producto> nuevosProductos)
+    {
+        Pedido pedidoAModificar = pedidos.Find(p => p.IdPedido == idPedido);
+
+        if (pedidoAModificar != null)
+        {
+            pedidoAModificar.Cliente = nuevoCliente;
+            pedidoAModificar.Productos = nuevosProductos;
+            pedidoAModificar.Total = CalcularTotal(nuevosProductos);
+
+            Console.WriteLine("Pedido modificado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("No se encontró el pedido con el ID especificado.");
+        }
+    }
+
+    public void CancelarPedido(List<Pedido> pedidos, int idPedido)
+    {
+        Pedido pedidoACancelar = pedidos.Find(p => p.IdPedido == idPedido);
+
+        if (pedidoACancelar != null)
+        {
+            pedidos.Remove(pedidoACancelar);
+            Console.WriteLine("Pedido cancelado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("No se encontró el pedido con el ID especificado.");
+        }
+    }
+
+    public static double CalcularTotal(List<Producto> productos)
+    {
+        double total = 0;
+
+        foreach (Producto producto in productos)
+        {
+            total += producto.Precio;
+        }
+
+        return total;
+    }
+
 }
