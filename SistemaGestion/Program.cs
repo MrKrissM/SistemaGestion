@@ -1,13 +1,8 @@
 ﻿
 
-
 List<Cliente> clientes = new List<Cliente>();
 List<Producto> productos = new List<Producto>();
 List<Pedido> pedidos = new List<Pedido>();
-
-string rutaClientes = "clientes.txt";
-string rutaProductos = "productos.txt";
-string rutaPedidos = "pedidos.txt";
 
 while (true)
 {
@@ -39,9 +34,7 @@ while (true)
             break;
     }
 
-    Data.GuardarClientes(clientes, rutaClientes);
-    Data.GuardarProductos(productos, rutaProductos);
-    Data.GuardarPedidos(pedidos, rutaPedidos);
+
 }
 
 
@@ -93,6 +86,7 @@ static void GestionClientes(List<Cliente> clientes)
                 break;
         }
     }
+
 }
 
 // Métodos para gestionar productos

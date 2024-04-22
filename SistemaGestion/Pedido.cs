@@ -21,7 +21,6 @@ public class Pedido
     public List<Producto> Productos { get => productos; set => productos = value; }
     public double Total { get => total; set => total = value; }
 
-
     public static void CrearPedido(List<Pedido> pedidos, List<Cliente> clientes, List<Producto> productos)
     {
         try
@@ -41,14 +40,28 @@ public class Pedido
             {
                 Cliente clienteSeleccionado = clientes[indiceCliente];
 
+                Console.WriteLine("\nLista de Productos:");
+                for (int i = 0; i < productos.Count; i++)
+                {
+                    Producto producto = productos[i];
+                    Console.WriteLine($"{i + 1}. {producto.Nombre}");
+                }
+                Console.WriteLine("\nSeleccione el número de producto para el pedido: ");
+                int indiceProducto = int.Parse(Console.ReadLine()) - 1;
+
                 int nuevoIdPedido = pedidos.Count == 0 ? 1 : pedidos.Max(p => p.IdPedido) + 1;
                 DateTime fechaPedido = DateTime.Now;
                 double totalPedido = CalcularTotal(productos);
+                
 
                 Pedido nuevoPedido = new Pedido(nuevoIdPedido, fechaPedido, clienteSeleccionado, productos, totalPedido);
                 pedidos.Add(nuevoPedido);
+                string rutaPedidos = "pedidos.txt";
+                Data.GuardarPedidos(pedidos, rutaPedidos);
+                Data.GuardarDatos(clientes, productos, pedidos, "clientes.txt", "productos.txt", "pedidos.txt");
 
-                Console.WriteLine("Pedido creado exitosamente.");
+                Console.WriteLine($"\nPedido creado exitosamente para el cliente {clienteSeleccionado.Nombre}.");
+
             }
             else
             {

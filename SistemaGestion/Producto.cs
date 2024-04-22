@@ -13,6 +13,7 @@ public class Producto
         this.descripcion = descripcion;
     }
 
+
     public int IdProducto { get => idProducto; set => idProducto = value; }
     public string Nombre { get => nombre; set => nombre = value; }
     public double Precio { get => precio; set => precio = value; }
@@ -30,9 +31,12 @@ public class Producto
             double precio = double.Parse(Console.ReadLine());
             Console.Write("Descripción: ");
             string descripcion = Console.ReadLine();
+            string rutaProductos = "productos.txt";
 
             Producto nuevoProducto = new Producto(productos.Count + 1, nombre, precio, descripcion);
             productos.Add(nuevoProducto);
+            Data.GuardarProductos(productos, rutaProductos);
+
             Console.WriteLine("Producto creado exitosamente.");
         }
         catch (Exception ex)

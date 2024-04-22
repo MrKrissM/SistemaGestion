@@ -21,7 +21,6 @@ public class Cliente
     public string Telefono { get => telefono; set => telefono = value; }
     public string CorreoElectronico { get => correoElectronico; set => correoElectronico = value; }
 
-
     public static void RegistrarCliente(List<Cliente> clientes)
     {
         try
@@ -35,9 +34,12 @@ public class Cliente
             string telefono = Console.ReadLine();
             Console.Write("Correo electrónico: ");
             string correoElectronico = Console.ReadLine();
+            string rutaClientes = "clientes.txt";
 
             Cliente nuevoCliente = new Cliente(clientes.Count + 1, nombre, direccion, telefono, correoElectronico);
             clientes.Add(nuevoCliente);
+            // Data.GuardarClientes(clientes, rutaClientes);
+            Data.GuardarClienteHist(clientes, rutaClientes);
             Console.WriteLine("Cliente registrado exitosamente.");
         }
         catch (Exception ex)
