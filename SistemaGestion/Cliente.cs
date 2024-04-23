@@ -23,30 +23,40 @@ public class Cliente
 
     public static void RegistrarCliente(List<Cliente> clientes)
     {
-        try
-        {
-            Console.WriteLine("Registro de nuevo cliente");
-            Console.Write("Nombre: ");
-            string nombre = Console.ReadLine();
-            Console.Write("Dirección: ");
-            string direccion = Console.ReadLine();
-            Console.Write("Teléfono: ");
-            string telefono = Console.ReadLine();
-            Console.Write("Correo electrónico: ");
-            string correoElectronico = Console.ReadLine();
-            string rutaClientes = "clientes.txt";
+       try
+    {
+        // Carga los datos de clientes existentes del archivo (si hay alguno)
+        string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
+        List<Cliente> clientesExistentes = Data.CargarClientes(rutaArchivoClientes);
 
-            Cliente nuevoCliente = new Cliente(clientes.Count + 1, nombre, direccion, telefono, correoElectronico);
-            clientes.Add(nuevoCliente);
-            // Data.GuardarClientes(clientes, rutaClientes);
-            Data.GuardarClienteHist(clientes, rutaClientes);
-            Console.WriteLine("Cliente registrado exitosamente.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error al registrar el cliente: " + ex.Message);
-        }
+        // Combina los clientes existentes y el nuevo en una única lista
+        clientes.AddRange(clientesExistentes);
 
+        // Registra un cliente nuevo como de costumbre
+        Console.WriteLine("Registro de nuevo cliente");
+        Console.Write("Nombre: ");
+        string nombre = Console.ReadLine();
+        Console.Write("Dirección: ");
+        string direccion = Console.ReadLine();
+        Console.Write("Teléfono: ");
+        string telefono = Console.ReadLine();
+        Console.Write("Correo electrónico: ");
+        string correoElectronico = Console.ReadLine();
+
+        int nuevoIdCliente = clientes.Count + 1; // Suponiendo que los ID comienzan desde 1
+        Cliente nuevoCliente = new Cliente(nuevoIdCliente, nombre, direccion, telefono, correoElectronico);
+        clientes.Add(nuevoCliente);
+
+        // Guarda la lista actualizada de clientes en el archivo
+        Data.GuardarClientes(clientes);
+        // Data.GuardarClienteHist(clientes, rutaClientes); // Guardado opcional del historial
+
+        Console.WriteLine("Cliente registrado exitosamente.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Error al registrar el cliente: " + ex.Message);
+    }
     }
 
     public static void ModificarCliente(List<Cliente> clientes, int idCliente, string nuevoNombre, string nuevaDireccion, string nuevoTelefono, string nuevoCorreoElectronico)

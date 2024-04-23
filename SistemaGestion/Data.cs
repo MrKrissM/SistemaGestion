@@ -2,26 +2,27 @@
 public class Data
 {
 
-
-    public static void GuardarClientes(List<Cliente> clientes, string rutaClientes)
+   public static void GuardarClientes(List<Cliente> clientes)
+{
+    string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
+    try
     {
-        try
+        using (StreamWriter escritor = new StreamWriter(rutaArchivo))
         {
-            using (StreamWriter escritor = new StreamWriter(rutaClientes))
+            foreach (Cliente cliente in clientes)
             {
-                foreach (Cliente cliente in clientes)
-                {
-                    string linea = $"{cliente.IdCliente},{cliente.Nombre},{cliente.Direccion},{cliente.Telefono},{cliente.CorreoElectronico}";
-                    escritor.WriteLine(linea);
-                }
+                string linea = $"{cliente.IdCliente},{cliente.Nombre},{cliente.Direccion},{cliente.Telefono},{cliente.CorreoElectronico}";
+                escritor.WriteLine(linea);
             }
-            Console.WriteLine("Clientes guardados correctamente.");
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error al guardar clientes: " + ex.Message);
-        }
+
+        Console.WriteLine("Clientes guardados correctamente.");
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Error al guardar clientes: " + ex.Message);
+    }
+}
 
     public static void GuardarProductos(List<Producto> productos, string rutaProductos)
     {
@@ -64,24 +65,41 @@ public class Data
         }
     }
 
-
-    public static void GuardarDatos(List<Cliente> clientes, List<Producto> productos, List<Pedido> pedidos, string rutaClientes, string rutaProductos, string rutaPedidos)
+public static List<Cliente> CargarClientes(string rutaArchivo)
+{
+    List<Cliente> clientes = new List<Cliente>();
+    try
     {
-        GuardarClientes(clientes, rutaClientes);
-        GuardarProductos(productos, rutaProductos);
-        GuardarPedidos(pedidos, rutaPedidos);
-    }
-
-    public static void GuardarClienteHist(List<Cliente> clientes, string rutaClientes)
-    {
-        using (StreamWriter writer = new StreamWriter(rutaClientes))
+        using (StreamReader lector = new StreamReader(rutaArchivo))
         {
-            foreach (Cliente cliente in clientes)
+            string linea;
+            while ((linea = lector.ReadLine()) != null)
             {
-                writer.WriteLine($"{cliente.IdCliente}|{cliente.Nombre}");
+                string[] datosCliente = linea.Split(',');
+                if (datosCliente.Length == 5)
+                {
+                    // Extract data from the CSV line
+                    int idCliente = int.Parse(datosCliente[0]);
+                    string nombre = datosCliente[1];
+                    string direccion = datosCliente[2];
+                    string telefono = datosCliente[3];
+                    string correoElectronico = datosCliente[4];
+
+                    // Create a Cliente object with the extracted data
+                    Cliente cliente = new Cliente(idCliente, nombre, direccion, telefono, correoElectronico);
+
+                    clientes.Add(cliente);
+                }
             }
         }
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Error al cargar clientes: " + ex.Message);
+    }
+
+    return clientes;
+}
 
 
 }
