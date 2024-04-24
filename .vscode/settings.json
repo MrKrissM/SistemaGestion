@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "SistemaGestion.sln"
+    "dotnet.defaultSolution": "SistemaGestion.sln",
+    "cmake.configureOnOpen": false
 }

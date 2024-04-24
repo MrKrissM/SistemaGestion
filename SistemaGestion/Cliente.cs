@@ -21,13 +21,13 @@ public class Cliente
     public string Telefono { get => telefono; set => telefono = value; }
     public string CorreoElectronico { get => correoElectronico; set => correoElectronico = value; }
 
+    // public static List<Cliente> clientesGlobal = new List<Cliente>();
+    public static string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
+    public static List<Cliente> clientesExistentes = Data.CargarClientes(rutaArchivoClientes);
     public static void RegistrarCliente(List<Cliente> clientes)
     {
         try
         {
-            // Carga los datos de clientes existentes del archivo (si hay alguno)
-            string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
-            List<Cliente> clientesExistentes = Data.CargarClientes(rutaArchivoClientes);
 
             // Registra un cliente nuevo como de costumbre
             Console.WriteLine("Registro de nuevo cliente");
@@ -40,7 +40,9 @@ public class Cliente
             Console.Write("Correo electrónico: ");
             string correoElectronico = Console.ReadLine();
 
-            int nuevoIdCliente = clientes.Count + 1; // Suponiendo que los ID comienzan desde 1
+            // Obtener el último ID utilizado en la lista de clientes existente
+            int ultimoIdCliente = clientesExistentes.Count > 0 ? clientesExistentes.Max(c => c.IdCliente) : 0;
+            int nuevoIdCliente = ultimoIdCliente + 1;
             Cliente nuevoCliente = new Cliente(nuevoIdCliente, nombre, direccion, telefono, correoElectronico);
             // Agrega el nuevo cliente a la lista de clientes existentes
             clientesExistentes.Add(nuevoCliente);
@@ -60,11 +62,12 @@ public class Cliente
     }
 
 
-    public static void ModificarCliente(List<Cliente> clientes, int idCliente, string nuevoNombre, string nuevaDireccion, string nuevoTelefono, string nuevoCorreoElectronico)
+    public static void ModificarCliente(List<Cliente> clientesExistentes, int idCliente, string nuevoNombre, string nuevaDireccion, string nuevoTelefono, string nuevoCorreoElectronico)
     {
         try
         {
-            Cliente clienteAModificar = clientes.Find(c => c.IdCliente == idCliente);
+
+            Cliente clienteAModificar = clientesExistentes.Find(c => c.IdCliente == idCliente);
 
             if (clienteAModificar != null)
             {
@@ -72,6 +75,9 @@ public class Cliente
                 clienteAModificar.Direccion = nuevaDireccion;
                 clienteAModificar.Telefono = nuevoTelefono;
                 clienteAModificar.CorreoElectronico = nuevoCorreoElectronico;
+
+                // Guarda la lista actualizada de clientes en el archivo
+                 Data.GuardarClientes(clientesExistentes);
 
                 Console.WriteLine("Cliente modificado exitosamente.");
             }
@@ -87,15 +93,20 @@ public class Cliente
 
     }
 
-    public static void EliminarCliente(List<Cliente> clientes, int idCliente)
+
+    public static void EliminarCliente(List<Cliente> clientesExistentes, int idCliente)
     {
         try
         {
-            Cliente clienteAEliminar = clientes.Find(c => c.IdCliente == idCliente);
+            Cliente clienteAEliminar = clientesExistentes.Find(c => c.IdCliente == idCliente);
 
             if (clienteAEliminar != null)
             {
-                clientes.Remove(clienteAEliminar);
+                clientesExistentes.Remove(clienteAEliminar);
+
+                // Guarda la lista actualizada de clientes en el archivo
+                 Data.GuardarClientes(clientesExistentes);
+
                 Console.WriteLine("Cliente eliminado exitosamente.");
             }
             else
@@ -109,10 +120,10 @@ public class Cliente
         }
 
     }
-    
+
     public static void VerListaClientes(List<Cliente> clientes)
     {
-            
+
         try
         {
             if (clientes.Count == 0)

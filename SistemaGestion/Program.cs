@@ -4,8 +4,6 @@ List<Cliente> clientes = new List<Cliente>();
 List<Producto> productos = new List<Producto>();
 List<Pedido> pedidos = new List<Pedido>();
 
-string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
-List<Cliente> clientesExistentes = Data.CargarClientes(rutaArchivoClientes);
 
 while (true)
 {
@@ -72,15 +70,15 @@ void GestionClientes(List<Cliente> clientes)
                 string nuevoTelefono = Console.ReadLine();
                 Console.Write("Nuevo correo electrónico: ");
                 string nuevoCorreoElectronico = Console.ReadLine();
-                Cliente.ModificarCliente(clientesExistentes, idClienteModificar, nuevoNombre, nuevaDireccion, nuevoTelefono, nuevoCorreoElectronico);
+                Cliente.ModificarCliente(Cliente.clientesExistentes, idClienteModificar, nuevoNombre, nuevaDireccion, nuevoTelefono, nuevoCorreoElectronico);
                 break;
             case 3:
                 Console.Write("ID del cliente a eliminar: ");
                 int idClienteEliminar = int.Parse(Console.ReadLine());
-                Cliente.EliminarCliente(clientesExistentes, idClienteEliminar);
+                Cliente.EliminarCliente(Cliente.clientesExistentes, idClienteEliminar);
                 break;
             case 4:
-                Cliente.VerListaClientes(clientesExistentes);
+                Cliente.VerListaClientes(Cliente.clientesExistentes);
                 break;
             case 5:
                 return;
