@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hwboG7Po22VLj0tS/t03PnPJKEvpM/YmP+HHla5VjBNDFe+OSp2xw4Qso76kD50YUI1bhBfAwWHcg7Ad56arQA==",
+  "dgSpecHash": "4u12nd/J6ktHzqzeNJs3QKnjh3wvMz0/cQaejVqNcE2KuwQYvgbQU4KIuAo2XfbLNKzGIbuN7EM9mZcInvJ2lQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\S1VS3-USER09\\Documents\\Proyectos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
+  "projectFilePath": "C:\\Users\\landc\\Documents\\NetCore\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

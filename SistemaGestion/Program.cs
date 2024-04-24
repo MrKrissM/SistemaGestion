@@ -4,6 +4,9 @@ List<Cliente> clientes = new List<Cliente>();
 List<Producto> productos = new List<Producto>();
 List<Pedido> pedidos = new List<Pedido>();
 
+string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
+List<Cliente> clientesExistentes = Data.CargarClientes(rutaArchivoClientes);
+
 while (true)
 {
 
@@ -39,7 +42,7 @@ while (true)
 
 
 // Métodos para gestionar clientes
-static void GestionClientes(List<Cliente> clientes)
+void GestionClientes(List<Cliente> clientes)
 {
 
     while (true)
@@ -69,15 +72,15 @@ static void GestionClientes(List<Cliente> clientes)
                 string nuevoTelefono = Console.ReadLine();
                 Console.Write("Nuevo correo electrónico: ");
                 string nuevoCorreoElectronico = Console.ReadLine();
-                Cliente.ModificarCliente(clientes, idClienteModificar, nuevoNombre, nuevaDireccion, nuevoTelefono, nuevoCorreoElectronico);
+                Cliente.ModificarCliente(clientesExistentes, idClienteModificar, nuevoNombre, nuevaDireccion, nuevoTelefono, nuevoCorreoElectronico);
                 break;
             case 3:
                 Console.Write("ID del cliente a eliminar: ");
                 int idClienteEliminar = int.Parse(Console.ReadLine());
-                Cliente.EliminarCliente(clientes, idClienteEliminar);
+                Cliente.EliminarCliente(clientesExistentes, idClienteEliminar);
                 break;
             case 4:
-                Cliente.VerListaClientes(clientes);
+                Cliente.VerListaClientes(clientesExistentes);
                 break;
             case 5:
                 return;
@@ -90,7 +93,7 @@ static void GestionClientes(List<Cliente> clientes)
 }
 
 // Métodos para gestionar productos
-static void GestionProductos(List<Producto> productos)
+void GestionProductos(List<Producto> productos)
 {
     while (true)
     {
@@ -137,7 +140,7 @@ static void GestionProductos(List<Producto> productos)
 }
 
 // Métodos para gestionar pedidos
-static void GestionPedidos(List<Pedido> pedidos, List<Cliente> clientes, List<Producto> productos)
+void GestionPedidos(List<Pedido> pedidos, List<Cliente> clientes, List<Producto> productos)
 {
     while (true)
     {
