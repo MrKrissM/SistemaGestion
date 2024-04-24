@@ -28,3 +28,33 @@ C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\Documentos\SistemaGestion\SistemaGes
 C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\Documentos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.pdb
 C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\Documentos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.genruntimeconfig.cache
 C:\Users\cmiranbe\OneDrive - NTT DATA EMEAL\Documentos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\ref\SistemaGestion.dll
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.exe
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.deps.json
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.runtimeconfig.json
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.dll
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.pdb
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.AssemblyInfoInputs.cache
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.AssemblyInfo.cs
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.csproj.CoreCompileInputs.cache
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.sourcelink.json
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.dll
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\refint\SistemaGestion.dll
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.pdb
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.genruntimeconfig.cache
+C:\Users\landc\Documents\NetCore\SistemaGestion\SistemaGestion\obj\Debug\net8.0\ref\SistemaGestion.dll
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.exe
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.deps.json
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.runtimeconfig.json
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.dll
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\bin\Debug\net8.0\SistemaGestion.pdb
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.AssemblyInfoInputs.cache
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.AssemblyInfo.cs
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.csproj.CoreCompileInputs.cache
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.sourcelink.json
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.dll
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\refint\SistemaGestion.dll
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.pdb
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\SistemaGestion.genruntimeconfig.cache
+C:\Users\S1VS3-USER09\Documents\Proyectos\SistemaGestion\SistemaGestion\obj\Debug\net8.0\ref\SistemaGestion.dll

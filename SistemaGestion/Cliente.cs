@@ -21,10 +21,18 @@ public class Cliente
     public string Telefono { get => telefono; set => telefono = value; }
     public string CorreoElectronico { get => correoElectronico; set => correoElectronico = value; }
 
-
-
     public static void RegistrarCliente(List<Cliente> clientes)
     {
+       try
+    {
+        // Carga los datos de clientes existentes del archivo (si hay alguno)
+        string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
+        List<Cliente> clientesExistentes = Data.CargarClientes(rutaArchivoClientes);
+
+        // Combina los clientes existentes y el nuevo en una única lista
+        clientes.AddRange(clientesExistentes);
+
+        // Registra un cliente nuevo como de costumbre
         Console.WriteLine("Registro de nuevo cliente");
         Console.Write("Nombre: ");
         string nombre = Console.ReadLine();
@@ -35,11 +43,100 @@ public class Cliente
         Console.Write("Correo electrónico: ");
         string correoElectronico = Console.ReadLine();
 
-        Cliente nuevoCliente = new Cliente(clientes.Count + 1, nombre, direccion, telefono, correoElectronico);
+        int nuevoIdCliente = clientes.Count + 1; // Suponiendo que los ID comienzan desde 1
+        Cliente nuevoCliente = new Cliente(nuevoIdCliente, nombre, direccion, telefono, correoElectronico);
         clientes.Add(nuevoCliente);
+
+        // Guarda la lista actualizada de clientes en el archivo
+        Data.GuardarClientes(clientes);
+        // Data.GuardarClienteHist(clientes, rutaClientes); // Guardado opcional del historial
+
         Console.WriteLine("Cliente registrado exitosamente.");
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Error al registrar el cliente: " + ex.Message);
+    }
+    }
 
-    // Implementar métodos para actualizar y eliminar clientes
+    public static void ModificarCliente(List<Cliente> clientes, int idCliente, string nuevoNombre, string nuevaDireccion, string nuevoTelefono, string nuevoCorreoElectronico)
+    {
+        try
+        {
+            Cliente clienteAModificar = clientes.Find(c => c.IdCliente == idCliente);
+
+            if (clienteAModificar != null)
+            {
+                clienteAModificar.Nombre = nuevoNombre;
+                clienteAModificar.Direccion = nuevaDireccion;
+                clienteAModificar.Telefono = nuevoTelefono;
+                clienteAModificar.CorreoElectronico = nuevoCorreoElectronico;
+
+                Console.WriteLine("Cliente modificado exitosamente.");
+            }
+            else
+            {
+                Console.WriteLine("No se encontró el cliente con el ID especificado.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al modificar el cliente: " + ex.Message);
+        }
+
+    }
+
+    public static void EliminarCliente(List<Cliente> clientes, int idCliente)
+    {
+        try
+        {
+            Cliente clienteAEliminar = clientes.Find(c => c.IdCliente == idCliente);
+
+            if (clienteAEliminar != null)
+            {
+                clientes.Remove(clienteAEliminar);
+                Console.WriteLine("Cliente eliminado exitosamente.");
+            }
+            else
+            {
+                Console.WriteLine("No se encontró el cliente con el ID especificado.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al eliminar el cliente: " + ex.Message);
+        }
+
+    }
+
+    public static void VerListaClientes(List<Cliente> clientes)
+    {
+
+        try
+        {
+            if (clientes.Count == 0)
+            {
+                Console.WriteLine("No hay clientes registrados.");
+            }
+            else
+            {
+                Console.WriteLine("\nLISTADO DE CLIENTES");
+                Console.WriteLine("------------------------");
+                foreach (Cliente cliente in clientes)
+                {
+                    Console.WriteLine($"ID: {cliente.IdCliente}");
+                    Console.WriteLine($"Nombre: {cliente.Nombre}");
+                    Console.WriteLine($"Dirección: {cliente.Direccion}");
+                    Console.WriteLine($"Teléfono: {cliente.Telefono}");
+                    Console.WriteLine($"Correo electrónico: {cliente.CorreoElectronico}");
+                    Console.WriteLine("------------------------");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al ver el listado de clientes: " + ex.Message);
+        }
+    }
 }
 
