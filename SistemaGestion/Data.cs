@@ -2,19 +2,21 @@
 public class Data
 {
 
-
-    public static void GuardarClientes(List<Cliente> clientes, string rutaClientes)
+    public void GuardarClientes(List<Cliente> clientes)
     {
+        string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
         try
         {
-            using (StreamWriter escritor = new StreamWriter(rutaClientes))
+            using (StreamWriter escritor = new StreamWriter(rutaArchivo))
             {
-                foreach (Cliente cliente in clientes)
+                for (int i = 0; i < clientes.Count; i++)
                 {
+                    Cliente cliente = clientes[i];
                     string linea = $"{cliente.IdCliente},{cliente.Nombre},{cliente.Direccion},{cliente.Telefono},{cliente.CorreoElectronico}";
                     escritor.WriteLine(linea);
                 }
             }
+
             Console.WriteLine("Clientes guardados correctamente.");
         }
         catch (Exception ex)
@@ -23,14 +25,16 @@ public class Data
         }
     }
 
-    public static void GuardarProductos(List<Producto> productos, string rutaProductos)
+    public void GuardarProductos(List<Producto> productos)
     {
+        string rutaArchivoProducto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
         try
         {
-            using (StreamWriter escritor = new StreamWriter(rutaProductos))
+            using (StreamWriter escritor = new StreamWriter(rutaArchivoProducto))
             {
-                foreach (Producto producto in productos)
+                for (int i = 0; i < productos.Count; i++)
                 {
+                    Producto producto = productos[i];
                     string linea = $"{producto.IdProducto},{producto.Nombre},{producto.Precio},{producto.Descripcion}";
                     escritor.WriteLine(linea);
                 }
@@ -44,15 +48,18 @@ public class Data
     }
 
 
-    public static void GuardarPedidos(List<Pedido> pedidos, string rutaPedidos)
+    public static void GuardarPedidos(List<Pedido> pedidos)
     {
+        string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pedidos.txt");
         try
         {
-            using (StreamWriter escritor = new StreamWriter(rutaPedidos))
+            using (StreamWriter escritor = new StreamWriter(rutaArchivo))
             {
-                foreach (Pedido pedido in pedidos)
+                for (int i = 0; i < pedidos.Count; i++)
                 {
-                    string linea = $"{pedido.IdPedido},{pedido.Cliente.Nombre},{String.Join(",", pedido.Productos.Select(p => p.Nombre))},{pedido.FechaPedido},{pedido.Total}";
+                    Pedido pedido = pedidos[i];
+                    string productosStr = String.Join(",", pedido.Productos.Select(p => p.Nombre));
+                    string linea = $"{pedido.IdPedido},{pedido.Cliente.Nombre},{productosStr},{pedido.FechaPedido},{pedido.Total}";
                     escritor.WriteLine(linea);
                 }
             }
@@ -64,24 +71,74 @@ public class Data
         }
     }
 
-
-    public static void GuardarDatos(List<Cliente> clientes, List<Producto> productos, List<Pedido> pedidos, string rutaClientes, string rutaProductos, string rutaPedidos)
+    public List<Cliente> CargarClientes(string rutaArchivo)
     {
-        GuardarClientes(clientes, rutaClientes);
-        GuardarProductos(productos, rutaProductos);
-        GuardarPedidos(pedidos, rutaPedidos);
-    }
-
-    public static void GuardarClienteHist(List<Cliente> clientes, string rutaClientes)
-    {
-        using (StreamWriter writer = new StreamWriter(rutaClientes))
+        List<Cliente> clientes = new List<Cliente>();
+        try
         {
-            foreach (Cliente cliente in clientes)
+            using (StreamReader lector = new StreamReader(rutaArchivo))
             {
-                writer.WriteLine($"{cliente.IdCliente}|{cliente.Nombre}");
+                string linea;
+                while ((linea = lector.ReadLine()) != null)
+                {
+                    string[] datosCliente = linea.Split(',');
+                    if (datosCliente.Length == 5)
+                    {
+                        // Extract data from the CSV line
+                        int idCliente = int.Parse(datosCliente[0]);
+                        string nombre = datosCliente[1];
+                        string direccion = datosCliente[2];
+                        string telefono = datosCliente[3];
+                        string correoElectronico = datosCliente[4];
+
+                        // Create a Cliente object with the extracted data
+                        Cliente cliente = new Cliente(idCliente, nombre, direccion, telefono, correoElectronico);
+
+                        clientes.Add(cliente);
+                    }
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al cargar clientes: " + ex.Message);
+        }
+        return clientes;
+
     }
 
+public List<Producto> CargarProductos(string rutaArchivoProducto)
+    {
+        List<Producto> productos = new List<Producto>();
+        try
+        {
+            using (StreamReader lector = new StreamReader(rutaArchivoProducto))
+            {
+                string linea;
+                while ((linea = lector.ReadLine()) != null)
+                {
+                    string[] datosProductos = linea.Split(',');
+                    if (datosProductos.Length == 5)
+                    {
+                        // Extract data from the CSV line
+                        int idProducto = int.Parse(datosProductos[0]);
+                        string nombre = datosProductos[1];
+                        double precio = int.Parse(datosProductos[2]);
+                        string descripcion = datosProductos[3];
 
+                        // Create a Cliente object with the extracted data
+                        Producto producto = new Producto(idProducto, nombre, precio, descripcion);
+
+                        productos.Add(producto);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al cargar clientes: " + ex.Message);
+        }
+        return productos;
+
+    }
 }

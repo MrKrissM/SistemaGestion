@@ -1,26 +1,28 @@
 public class Producto
 {
-    private int idProducto;
-    private string nombre;
-    private double precio;
-    private string descripcion;
+    
+    public int IdProducto { get; set; }
+    public string Nombre { get; set; }
+    public double Precio { get; set; }
+    public string Descripcion { get; set; }
+    public Data data;
+    public string rutaArchivoProductos;
+    public List<Producto> productosExistentes;
 
     public Producto(int idProducto, string nombre, double precio, string descripcion)
     {
-        this.idProducto = idProducto;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.descripcion = descripcion;
+        IdProducto = idProducto;
+        Nombre = nombre;
+        Precio = precio;
+        Descripcion = descripcion;
+
+        data = new Data();
+        rutaArchivoProductos = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
+        productosExistentes = data.CargarProductos(rutaArchivoProductos);
     }
 
 
-    public int IdProducto { get => idProducto; set => idProducto = value; }
-    public string Nombre { get => nombre; set => nombre = value; }
-    public double Precio { get => precio; set => precio = value; }
-    public string Descripcion { get => descripcion; set => descripcion = value; }
-
-
-    public static void CrearProducto(List<Producto> productos)
+    public void CrearProducto(List<Producto> productos)
     {
         try
         {
@@ -31,11 +33,16 @@ public class Producto
             double precio = double.Parse(Console.ReadLine());
             Console.Write("Descripción: ");
             string descripcion = Console.ReadLine();
-            string rutaProductos = "productos.txt";
 
-            Producto nuevoProducto = new Producto(productos.Count + 1, nombre, precio, descripcion);
-            productos.Add(nuevoProducto);
-            Data.GuardarProductos(productos, rutaProductos);
+            int ultimoIdProducto = productosExistentes.Count > 0 ? productosExistentes.Max(c => c.IdProducto) : 0;
+            int nuevoIdProducto = ultimoIdProducto + 1;
+            Producto nuevoProducto = new Producto(nuevoIdProducto, nombre, precio, descripcion);
+
+            productosExistentes.Add(nuevoProducto);
+            productos.Clear();
+            productos.AddRange(productosExistentes);
+            
+            data.GuardarProductos(productos);
 
             Console.WriteLine("Producto creado exitosamente.");
         }
@@ -45,18 +52,20 @@ public class Producto
         }
     }
 
-    public static void ModificarProducto(List<Producto> productos, int idProducto, string nuevoNombre, double nuevoPrecio, string nuevaDescripcion)
+    public void ModificarProducto(List<Producto> productosExistentes, int idProducto, string nuevoNombre, double nuevoPrecio, string nuevaDescripcion)
     {
-
         try
         {
-            Producto productoAModificar = productos.Find(p => p.IdProducto == idProducto);
+            Producto productoAModificar = productosExistentes.Find(p => p.IdProducto == idProducto);
 
             if (productoAModificar != null)
             {
                 productoAModificar.Nombre = nuevoNombre;
                 productoAModificar.Precio = nuevoPrecio;
                 productoAModificar.Descripcion = nuevaDescripcion;
+
+                data.GuardarProductos(productosExistentes);
+
 
                 Console.WriteLine("Producto modificado exitosamente.");
             }
@@ -71,16 +80,19 @@ public class Producto
         }
     }
 
-    public static void EliminarProducto(List<Producto> productos, int idProducto)
+    public void EliminarProducto(List<Producto> productos, int idProducto)
     {
         try
         {
-            Producto productoAEliminar = productos.Find(p => p.IdProducto == idProducto);
+            Producto productoAEliminar = productosExistentes.Find(p => p.IdProducto == idProducto);
 
             if (productoAEliminar != null)
             {
                 productos.Remove(productoAEliminar);
                 Console.WriteLine("Producto eliminado exitosamente.");
+
+                data.GuardarProductos(productosExistentes);
+
             }
             else
             {
@@ -92,7 +104,7 @@ public class Producto
             Console.WriteLine("Error al eliminar un producto: " + ex.Message);
         }
     }
- public static void VerListaProductos(List<Producto> productos)
+ public void VerListaProductos(List<Producto> productos)
     {
 
         try

@@ -57,9 +57,7 @@ public class Pedido
                 Pedido nuevoPedido = new Pedido(nuevoIdPedido, fechaPedido, clienteSeleccionado, productos, totalPedido);
                 pedidos.Add(nuevoPedido);
                 string rutaPedidos = "pedidos.txt";
-                Data.GuardarPedidos(pedidos, rutaPedidos);
-                Data.GuardarDatos(clientes, productos, pedidos, "clientes.txt", "productos.txt", "pedidos.txt");
-
+                Data.GuardarPedidos(pedidos);
                 Console.WriteLine($"\nPedido creado exitosamente para el cliente {clienteSeleccionado.Nombre}.");
 
             }
