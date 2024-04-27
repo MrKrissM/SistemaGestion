@@ -21,7 +21,13 @@ public class Producto
         productosExistentes = data.CargarProductos(rutaArchivoProductos);
     }
 
-
+public Producto()
+    {
+        IdProducto = 0;
+        Nombre = "";
+        Precio = 0;
+        Descripcion = "";
+    }
     public void CrearProducto(List<Producto> productos)
     {
         try

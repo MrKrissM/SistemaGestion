@@ -23,6 +23,16 @@ public class Cliente
         clientesExistentes = data.CargarClientes(rutaArchivoClientes);
     }
 
+    public Cliente()
+    {
+        IdCliente = 0;
+        Nombre = "";
+        Direccion = "";
+        Telefono = "";
+        CorreoElectronico = "";
+
+    }
+
     public void RegistrarCliente(List<Cliente> clientes)
     {
         try
