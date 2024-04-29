@@ -6,9 +6,9 @@ public class Cliente
     public string Telefono { get; set; }
     public string CorreoElectronico { get; set; }
 
-    public Data data;
-    public string rutaArchivoClientes;
-    public List<Cliente> clientesExistentes;
+    public Data data = new Data();
+    public string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
+    public List<Cliente> clientesExistentes { get; set; }
 
     public Cliente(int idCliente, string nombre, string direccion, string telefono, string correoElectronico)
     {
@@ -17,12 +17,7 @@ public class Cliente
         Direccion = direccion;
         Telefono = telefono;
         CorreoElectronico = correoElectronico;
-
-        data = new Data();
-        rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
-        clientesExistentes = data.CargarClientes(rutaArchivoClientes);
     }
-
     public Cliente()
     {
         IdCliente = 0;
@@ -30,7 +25,7 @@ public class Cliente
         Direccion = "";
         Telefono = "";
         CorreoElectronico = "";
-
+        clientesExistentes = data.CargarClientes(rutaArchivoClientes);
     }
 
     public void RegistrarCliente(List<Cliente> clientes)
@@ -67,12 +62,10 @@ public class Cliente
         }
     }
 
-
-     public void ModificarCliente(List<Cliente> clientesExistentes, int idCliente, string nuevoNombre, string nuevaDireccion, string nuevoTelefono, string nuevoCorreoElectronico)
+    public void ModificarCliente(List<Cliente> clientesExistentes, int idCliente, string nuevoNombre, string nuevaDireccion, string nuevoTelefono, string nuevoCorreoElectronico)
     {
         try
         {
-
             Cliente clienteAModificar = clientesExistentes.Find(c => c.IdCliente == idCliente);
 
             if (clienteAModificar != null)
@@ -83,7 +76,7 @@ public class Cliente
                 clienteAModificar.CorreoElectronico = nuevoCorreoElectronico;
 
                 // Guarda la lista actualizada de clientes en el archivo
-                 data.GuardarClientes(clientesExistentes);
+                data.GuardarClientes(clientesExistentes);
 
                 Console.WriteLine("Cliente modificado exitosamente.");
             }

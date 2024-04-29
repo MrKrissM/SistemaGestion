@@ -48,12 +48,12 @@ public class Data
     }
 
 
-    public static void GuardarPedidos(List<Pedido> pedidos)
+    public void GuardarPedidos(List<Pedido> pedidos)
     {
-        string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pedidos.txt");
+        string rutaArchivoPedido = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pedidos.txt");
         try
         {
-            using (StreamWriter escritor = new StreamWriter(rutaArchivo))
+            using (StreamWriter escritor = new StreamWriter(rutaArchivoPedido))
             {
                 for (int i = 0; i < pedidos.Count; i++)
                 {
@@ -123,7 +123,7 @@ public List<Producto> CargarProductos(string rutaArchivoProducto)
                         // Extract data from the CSV line
                         int idProducto = int.Parse(datosProductos[0]);
                         string nombre = datosProductos[1];
-                        double precio = int.Parse(datosProductos[2]);
+                        double precio = double.Parse(datosProductos[2]);
                         string descripcion = datosProductos[3];
 
                         // Create a Cliente object with the extracted data
@@ -140,5 +140,84 @@ public List<Producto> CargarProductos(string rutaArchivoProducto)
         }
         return productos;
 
+    }
+
+     public List<Pedido> CargarPedidos(string rutaArchivoPedido)
+    {
+        List<Pedido> pedidos = new List<Pedido>();
+        try
+        {
+            using (StreamReader lector = new StreamReader(rutaArchivoPedido))
+            {
+                string linea;
+                while ((linea = lector.ReadLine()) != null)
+                {
+                    string[] datosPedido = linea.Split(',');
+                    if (datosPedido.Length == 6)
+                    {
+                        // Extract data from the CSV line
+                        int idPedido = int.Parse(datosPedido[0]);
+                        DateTime fechaPedido = DateTime.Parse(datosPedido[1]);
+                        int idCliente = int.Parse(datosPedido[2]);
+                        string nombreCliente = datosPedido[3];
+                        string direccionCliente = datosPedido[4];
+                        string telefonoCliente = datosPedido[5];
+
+                        // Create a Cliente object with the extracted data
+                        Cliente cliente = new Cliente(idCliente, nombreCliente, direccionCliente, telefonoCliente,"");
+
+                        // Load productos from the pedido
+                        List<Producto> productos = CargarProductosPedido(idPedido);
+
+                        // Create a Pedido object with the extracted data
+                        Pedido pedido = new Pedido(idPedido, fechaPedido, cliente, productos, 0);
+
+                        pedidos.Add(pedido);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al cargar pedidos: " + ex.Message);
+        }
+        return pedidos;
+    }
+
+    private List<Producto> CargarProductosPedido(int idPedido)
+    {
+        List<Producto> productos = new List<Producto>();
+        try
+        {
+            string rutaProductosPedido = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"productos_pedido_{idPedido}.txt");
+            if (File.Exists(rutaProductosPedido))
+            {
+                using (StreamReader lector = new StreamReader(rutaProductosPedido))
+                {
+                    string linea;
+                    while ((linea = lector.ReadLine()) != null)
+                    {
+                        string[] datosProducto = linea.Split(',');
+                        if (datosProducto.Length == 3)
+                        {
+                            // Extract data from the CSV line
+                            int idProducto = int.Parse(datosProducto[0]);
+                            string nombreProducto = datosProducto[1];
+                            double precioProducto = double.Parse(datosProducto[2]);
+
+                            // Create a Producto object with the extracted data
+                            Producto producto = new Producto(idProducto, nombreProducto, precioProducto, "");
+
+                            productos.Add(producto);
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al cargar productos del pedido: " + ex.Message);
+        }
+        return productos;
     }
 }

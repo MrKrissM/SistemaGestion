@@ -1,5 +1,8 @@
 ﻿
+
+
 bool exitApp;
+
 do
 {
     exitApp = true;
@@ -7,11 +10,12 @@ do
     List<Producto> productos = new List<Producto>();
     List<Pedido> pedidos = new List<Pedido>();
 
-    Console.WriteLine("\nTIENDA DE PRODUCTOS UTILES");
+    Console.WriteLine("\nTIENDA DE PRODUCTOS MUSICALES");
     Console.WriteLine("1. Gestión de clientes");
     Console.WriteLine("2. Gestión de productos");
     Console.WriteLine("3. Gestión de pedidos");
-    Console.WriteLine("4. Salir");
+    Console.WriteLine("4. Generar reportes");
+    Console.WriteLine("5. Salir");
 
     int opcion = int.Parse(Console.ReadLine());
 
@@ -27,6 +31,9 @@ do
             GestionPedidos(pedidos, clientes, productos);
             break;
         case 4:
+            GenerarReportes(clientes, pedidos, productos);
+            break;
+        case 5:
             exitApp = false;
             Console.WriteLine("Saliendo de la aplicación...");
             break;
@@ -34,20 +41,19 @@ do
             Console.WriteLine("Opción no válida. Intente nuevamente.");
             break;
     }
-
 } while (exitApp);
 
 
 void GestionClientes(List<Cliente> clientes)
 {
     Cliente cliente = new Cliente();
-
     do
     {
         Console.WriteLine("\nGESTIÓN DE CLIENTES");
         Console.WriteLine("1. Registrar nuevo cliente");
         Console.WriteLine("2. Modificar cliente existente");
         Console.WriteLine("3. Eliminar cliente");
+
         Console.WriteLine("4. Ver lista de clientes");
         Console.WriteLine("5. Regresar al menú principal");
 
@@ -85,7 +91,7 @@ void GestionClientes(List<Cliente> clientes)
                 Console.WriteLine("Opción no válida. Intente nuevamente.");
                 break;
         }
-    } while (true);
+    } while (exitApp);
 
 }
 
@@ -114,9 +120,9 @@ void GestionProductos(List<Producto> productos)
                 int idProductoModificar = int.Parse(Console.ReadLine());
                 Console.Write("Nuevo nombre: ");
                 string nuevoNombre = Console.ReadLine();
-                Console.Write("Nueva dirección: ");
+                Console.Write("Nuevo precio: ");
                 double nuevoPrecio = double.Parse(Console.ReadLine());
-                Console.Write("Nuevo teléfono: ");
+                Console.Write("Nueva descripcion: ");
                 string nuevaDescripcion = Console.ReadLine();
                 producto.ModificarProducto(producto.productosExistentes, idProductoModificar, nuevoNombre, nuevoPrecio, nuevaDescripcion);
                 break;
@@ -134,12 +140,15 @@ void GestionProductos(List<Producto> productos)
                 Console.WriteLine("Opción no válida. Intente nuevamente.");
                 break;
         }
-    } while (true);
+    } while (exitApp);
 }
 
 
 void GestionPedidos(List<Pedido> pedidos, List<Cliente> clientes, List<Producto> productos)
 {
+    Pedido pedido = new Pedido();
+    Cliente cliente = new Cliente();
+    Producto producto = new Producto();
     do
     {
         Console.WriteLine("\nGESTIÓN DE PEDIDOS");
@@ -153,18 +162,18 @@ void GestionPedidos(List<Pedido> pedidos, List<Cliente> clientes, List<Producto>
         switch (opcionPedido)
         {
             case 1:
-                Pedido.CrearPedido(pedidos, clientes, productos);
+                pedido.CrearPedido(pedidos, cliente.clientesExistentes, producto.productosExistentes);
                 break;
             case 2:
-                Pedido.ModificarPedido(pedidos, clientes, productos);
+                pedido.ModificarPedido(pedidos, cliente.clientesExistentes, producto.productosExistentes);
                 break;
             case 3:
                 Console.WriteLine("Ingrese el ID del pedido que desea cancelar: ");
                 int idPedidoACancelar = int.Parse(Console.ReadLine());
-                Pedido.CancelarPedido(pedidos, idPedidoACancelar);
+                pedido.CancelarPedido(pedidos, idPedidoACancelar);
                 break;
             case 4:
-                Pedido.VerListaPedidos(pedidos);
+                pedido.VerListaPedidos(pedidos);
                 break;
             case 5:
                 return;
@@ -173,7 +182,41 @@ void GestionPedidos(List<Pedido> pedidos, List<Cliente> clientes, List<Producto>
                 break;
         }
 
-    } while (true);
+    } while (exitApp);
+}
+
+void GenerarReportes(List<Cliente> clientes, List<Pedido> pedidos, List<Producto> productos)
+{
+    Reportes generadorReportes = new Reportes(clientes, pedidos, productos);
+
+    do
+    {
+        Console.WriteLine("\nOPCIONES DE REPORTES");
+        Console.WriteLine("1. Listado de clientes");
+        Console.WriteLine("2. Histórico de pedidos por cliente");
+        Console.WriteLine("3. Productos más vendidos");
+        Console.WriteLine("4. Regresar al menú principal");
+
+        int opcionReporte = int.Parse(Console.ReadLine());
+
+        switch (opcionReporte)
+        {
+            case 1:
+                generadorReportes.GenerarReporteClientes();
+                break;
+            case 2:
+                generadorReportes.GenerarReporteHistoricoPedidos();
+                break;
+            case 3:
+                generadorReportes.GenerarReporteProductosMasVendidos();
+                break;
+            case 4:
+                return;
+            default:
+                Console.WriteLine("Opción no válida. Intente nuevamente.");
+                break;
+        }
+    } while (exitApp);
 }
 
 

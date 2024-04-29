@@ -1,5 +1,6 @@
-1,Jorge,altamira 2121,93242342,jorge@gmail.com
 3,Andres,andresito 2020,92312313,andres@gmail.com
 4,Juan,juanito 2323,93423434,juan@gmail.com
 5,Cristian,los guindos 123,93453455,cristian@gmail.com
 6,Samuel,cerro maulen s/n,9342342,samuel@gmail.com
+7,Cesar Miranda,vaqueria 1234,923123232,cesarito@gmail.com
+8,Benjamin ,volcan 123,95465412,benja@gmail.com

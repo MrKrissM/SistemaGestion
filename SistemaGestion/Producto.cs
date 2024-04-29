@@ -1,13 +1,12 @@
 public class Producto
 {
-    
     public int IdProducto { get; set; }
     public string Nombre { get; set; }
     public double Precio { get; set; }
     public string Descripcion { get; set; }
-    public Data data;
-    public string rutaArchivoProductos;
-    public List<Producto> productosExistentes;
+    public Data data = new Data();
+    public string rutaArchivoProductos = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
+    public List<Producto> productosExistentes { get; set; }
 
     public Producto(int idProducto, string nombre, double precio, string descripcion)
     {
@@ -15,18 +14,15 @@ public class Producto
         Nombre = nombre;
         Precio = precio;
         Descripcion = descripcion;
-
-        data = new Data();
-        rutaArchivoProductos = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
-        productosExistentes = data.CargarProductos(rutaArchivoProductos);
     }
 
-public Producto()
+    public Producto()
     {
         IdProducto = 0;
         Nombre = "";
         Precio = 0;
         Descripcion = "";
+        productosExistentes = data.CargarProductos(rutaArchivoProductos);
     }
     public void CrearProducto(List<Producto> productos)
     {
@@ -70,6 +66,8 @@ public Producto()
                 productoAModificar.Precio = nuevoPrecio;
                 productoAModificar.Descripcion = nuevaDescripcion;
 
+                // productos.Clear();
+                // productos.AddRange(productosExistentes);
                 data.GuardarProductos(productosExistentes);
 
 
@@ -86,7 +84,7 @@ public Producto()
         }
     }
 
-    public void EliminarProducto(List<Producto> productos, int idProducto)
+    public void EliminarProducto(List<Producto> productosExistentes, int idProducto)
     {
         try
         {
@@ -94,9 +92,11 @@ public Producto()
 
             if (productoAEliminar != null)
             {
-                productos.Remove(productoAEliminar);
+                productosExistentes.Remove(productoAEliminar);
                 Console.WriteLine("Producto eliminado exitosamente.");
 
+                // productos.Clear();
+                // productos.AddRange(productosExistentes);
                 data.GuardarProductos(productosExistentes);
 
             }
@@ -110,9 +110,8 @@ public Producto()
             Console.WriteLine("Error al eliminar un producto: " + ex.Message);
         }
     }
- public void VerListaProductos(List<Producto> productos)
+    public void VerListaProductos(List<Producto> productos)
     {
-
         try
         {
             if (productos.Count == 0)

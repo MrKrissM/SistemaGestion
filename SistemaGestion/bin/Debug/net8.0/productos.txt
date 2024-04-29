@@ -1,1 +1,2 @@
-1,Armonica Hohnner,30,Armonica afinada en Do
+1,guitarra,200,asdasd
+2,teclado,100,asdasdasd

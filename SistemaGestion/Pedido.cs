@@ -1,79 +1,102 @@
 public class Pedido
 {
-    private int idPedido;
-    private DateTime fechaPedido;
-    private Cliente cliente;
-    private List<Producto> productos;
-    private double total;
+    public int IdPedido { get; set; }
+    public DateTime FechaPedido { get; set; }
+    public Cliente Cliente { get; set; }
+    public List<Producto> Productos { get; set; }
+    public double Total { get; set; }
+    public Data data = new Data();
+    public string rutaArchivoPedidos = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pedidos.txt");
+    public string rutaArchivoClientes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
+    public string rutaArchivoProducto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
+    private Cliente clienteSeleccionado;
+    private List<Producto> productoSeleccionado;
+
+    public List<Pedido> pedidosExistentes { get; set; }
+    public List<Cliente> clientesExistentes { get; set; }
+    public List<Producto> productosExistentes { get; set; }
 
     public Pedido(int idPedido, DateTime fechaPedido, Cliente cliente, List<Producto> productos, double total)
     {
-        this.idPedido = idPedido;
-        this.fechaPedido = fechaPedido;
-        this.cliente = cliente;
-        this.productos = productos;
-        this.total = total;
+        IdPedido = idPedido;
+        FechaPedido = fechaPedido;
+        Cliente = cliente;
+        Productos = productos;
+        Total = total;
+    }
+    public Pedido()
+    {
+        IdPedido = 0;
+        FechaPedido = DateTime.Now;
+        clientesExistentes = data.CargarClientes(rutaArchivoClientes);
+        productosExistentes = data.CargarProductos(rutaArchivoProducto);
+        Productos = new List<Producto>();
+        Total = 0;
+        pedidosExistentes = data.CargarPedidos(rutaArchivoPedidos);
     }
 
-    public int IdPedido { get => idPedido; set => idPedido = value; }
-    public DateTime FechaPedido { get => fechaPedido; set => fechaPedido = value; }
-    public Cliente Cliente { get => cliente; set => cliente = value; }
-    public List<Producto> Productos { get => productos; set => productos = value; }
-    public double Total { get => total; set => total = value; }
-
-    public static void CrearPedido(List<Pedido> pedidos, List<Cliente> clientes, List<Producto> productos)
+    public void CrearPedido(List<Pedido> pedidos, List<Cliente> clientesExistentes, List<Producto> productosExistentes)
     {
         try
         {
             // Muestra una lista de clientes al usuario
             Console.WriteLine("\nLista de Clientes:");
-            for (int i = 0; i < clientes.Count; i++)
+            for (int i = 0; i < clientesExistentes.Count; i++)
             {
-                Cliente cliente = clientes[i];
+                Cliente cliente = clientesExistentes[i];
                 Console.WriteLine($"{i + 1}. {cliente.Nombre}");
             }
             // Solicita al usuario que seleccione un cliente
             Console.WriteLine("\nSeleccione el número del cliente para el pedido: ");
             int indiceCliente = int.Parse(Console.ReadLine()) - 1;
 
-            if (indiceCliente >= 0 && indiceCliente < clientes.Count)
+            if (indiceCliente >= 0 && indiceCliente < clientesExistentes.Count)
             {
-                Cliente clienteSeleccionado = clientes[indiceCliente];
-
-                Console.WriteLine("\nLista de Productos:");
-                for (int i = 0; i < productos.Count; i++)
-                {
-                    Producto producto = productos[i];
-                    Console.WriteLine($"{i + 1}. {producto.Nombre}");
-                }
-                Console.WriteLine("\nSeleccione el número de producto para el pedido: ");
-                int indiceProducto = int.Parse(Console.ReadLine()) - 1;
-
-                int nuevoIdPedido = pedidos.Count == 0 ? 1 : pedidos.Max(p => p.IdPedido) + 1;
-                DateTime fechaPedido = DateTime.Now;
-                double totalPedido = CalcularTotal(productos);
-                
-
-                Pedido nuevoPedido = new Pedido(nuevoIdPedido, fechaPedido, clienteSeleccionado, productos, totalPedido);
-                pedidos.Add(nuevoPedido);
-                string rutaPedidos = "pedidos.txt";
-                Data.GuardarPedidos(pedidos);
-                Console.WriteLine($"\nPedido creado exitosamente para el cliente {clienteSeleccionado.Nombre}.");
-
+                Cliente clienteSeleccionado = clientesExistentes[indiceCliente];
             }
             else
             {
                 Console.WriteLine("Índice de cliente inválido. Intente nuevamente.");
             }
+            Console.WriteLine("\nLista de Productos:");
+            for (int i = 0; i < productosExistentes.Count; i++)
+            {
+                Producto producto = productosExistentes[i];
+                Console.WriteLine($"{i + 1}. {producto.Nombre}");
+            }
+
+            Console.WriteLine("\nSeleccione el número de producto para el pedido: ");
+            int indiceProducto = int.Parse(Console.ReadLine()) - 1;
+            if (indiceProducto >= 0 && indiceProducto < productosExistentes.Count)
+            {
+                Producto productoSeleccionado = productosExistentes[indiceProducto];
+                
+            }
+            else
+            {
+                Console.WriteLine("Índice de producto inválido. Intente nuevamente.");
+            }
+            
+            int nuevoIdPedido = pedidosExistentes.Count == 0 ? 1 : pedidosExistentes.Max(p => p.IdPedido) + 1;
+            DateTime fechaPedido = DateTime.Now;
+            double totalPedido = CalcularTotal(productoSeleccionado);
+
+            Pedido nuevoPedido = new Pedido(nuevoIdPedido, fechaPedido, clienteSeleccionado, productoSeleccionado, totalPedido);
+            pedidosExistentes.Add(nuevoPedido);
+            pedidos.Clear();
+            pedidos.AddRange(pedidosExistentes);
+            data.GuardarPedidos(pedidos);
+            Console.WriteLine($"\nPedido creado exitosamente para el cliente {clienteSeleccionado.Nombre}.");
+
         }
         catch (Exception ex)
         {
             Console.WriteLine("Error al crear el pedido: " + ex.Message);
         }
-
     }
 
-    public static void ModificarPedido(List<Pedido> pedidos, List<Cliente> clientes, List<Producto> productos)
+
+    public void ModificarPedido(List<Pedido> pedidos, List<Cliente> clientes, List<Producto> productos)
     {
         try
         {
@@ -85,7 +108,6 @@ public class Pedido
                 Pedido pedido = pedidos[i];
                 Console.WriteLine($"{i + 1}. ID: {pedido.IdPedido} - Fecha: {pedido.FechaPedido:dd/MM/yyyy} - Cliente: {pedido.Cliente.Nombre} - Total: {pedido.Total:c2}");
             }
-
             // Obtener ID del pedido del usuario
             Console.WriteLine("\nIngrese el ID del pedido que desea modificar: ");
             int idPedidoAModificar = int.Parse(Console.ReadLine());
@@ -100,10 +122,51 @@ public class Pedido
                 return;
             }
 
-            // Recalcular total
-            pedidoAModificar.Total = CalcularTotal(pedidoAModificar.Productos);
+            // Mostrar productos actuales del pedido
+            Console.WriteLine("\nProductos actuales del pedido:");
+            foreach (Producto producto in pedidoAModificar.Productos)
+            {
+                Console.WriteLine($"- {producto.Nombre} ({producto.Precio:c2})");
+            }
 
-            // Mostrar mensaje de éxito
+            // Permitir al usuario modificar los productos
+            Console.WriteLine("\nSeleccione los nuevos productos para el pedido (o escriba 'finalizar' para terminar):");
+            string opcion;
+            List<Producto> nuevosProductos = new List<Producto>();
+            do
+            {
+                Console.WriteLine("\nLista de Productos:");
+                for (int i = 0; i < productos.Count; i++)
+                {
+                    Producto producto = productos[i];
+                    Console.WriteLine($"{i + 1}. {producto.Nombre}");
+                }
+                Console.WriteLine("\nSeleccione el número de producto para agregar al pedido (o escriba 'finalizar' para terminar): ");
+                opcion = Console.ReadLine();
+                if (opcion.ToLower() != "finalizar")
+                {
+                    int indiceProducto = int.Parse(opcion) - 1;
+                    if (indiceProducto >= 0 && indiceProducto < productos.Count)
+                    {
+                        Producto productoSeleccionado = productos[indiceProducto];
+                        nuevosProductos.Add(productoSeleccionado);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Índice de producto inválido. Intente nuevamente.");
+                    }
+                }
+            } while (opcion.ToLower() != "finalizar");
+
+            // Actualizar los productos del pedido
+            pedidoAModificar.Productos = nuevosProductos;
+
+            // Recalcular el total del pedido
+            pedidoAModificar.Total = CalcularTotal(nuevosProductos);
+
+            // Guardar los cambios en el archivo
+            data.GuardarPedidos(pedidos);
+
             Console.WriteLine("Pedido modificado exitosamente.");
         }
         catch (Exception ex)
@@ -112,7 +175,7 @@ public class Pedido
         }
     }
 
-    public static void CancelarPedido(List<Pedido> pedidos, int idPedido)
+    public void CancelarPedido(List<Pedido> pedidos, int idPedido)
     {
         try
         {
@@ -121,6 +184,7 @@ public class Pedido
             if (pedidoACancelar != null)
             {
                 pedidos.Remove(pedidoACancelar);
+                data.GuardarPedidos(pedidos); // Guardar los cambios en el archivo
                 Console.WriteLine("Pedido cancelado exitosamente.");
             }
             else
@@ -133,8 +197,7 @@ public class Pedido
             Console.WriteLine("Error al cancelar el pedido: " + ex.Message);
         }
     }
-
-    public static double CalcularTotal(List<Producto> productos)
+    public double CalcularTotal(List<Producto> productos)
     {
 
         double total = 0;
@@ -147,7 +210,7 @@ public class Pedido
         return total;
     }
 
-    public static void VerListaPedidos(List<Pedido> pedidos)
+    public void VerListaPedidos(List<Pedido> pedidos)
     {
         try
         {
@@ -165,10 +228,10 @@ public class Pedido
                 Console.WriteLine($"Cliente: {pedido.Cliente.Nombre}");
                 Console.WriteLine($"Fecha: {pedido.FechaPedido.ToShortDateString()}");
                 Console.WriteLine($"Total: {pedido.Total:C2}");
-                Console.WriteLine("Productos:");
-                foreach (Producto producto in pedido.Productos)
+                Console.WriteLine($"Productos:{pedido.Productos}");
+                foreach (Producto producto in pedido.productosExistentes)
                 {
-                    Console.WriteLine($"  - {producto.Nombre} ({producto.Precio})");
+                    Console.WriteLine($"  - {producto.Nombre} ({producto.Precio:C2})");
                 }
                 Console.WriteLine("-----------------------");
             }
