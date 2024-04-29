@@ -1,7 +1,7 @@
 
 public class Data
 {
-
+  
     public void GuardarClientes(List<Cliente> clientes)
     {
         string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clientes.txt");
@@ -24,10 +24,10 @@ public class Data
             Console.WriteLine("Error al guardar clientes: " + ex.Message);
         }
     }
-
+    string rutaArchivoProducto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
     public void GuardarProductos(List<Producto> productos)
     {
-        string rutaArchivoProducto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
+        
         try
         {
             using (StreamWriter escritor = new StreamWriter(rutaArchivoProducto))
@@ -118,7 +118,7 @@ public List<Producto> CargarProductos(string rutaArchivoProducto)
                 while ((linea = lector.ReadLine()) != null)
                 {
                     string[] datosProductos = linea.Split(',');
-                    if (datosProductos.Length == 5)
+                    if (datosProductos.Length == 4)
                     {
                         // Extract data from the CSV line
                         int idProducto = int.Parse(datosProductos[0]);
@@ -167,7 +167,7 @@ public List<Producto> CargarProductos(string rutaArchivoProducto)
                         Cliente cliente = new Cliente(idCliente, nombreCliente, direccionCliente, telefonoCliente,"");
 
                         // Load productos from the pedido
-                        List<Producto> productos = CargarProductosPedido(idPedido);
+                        List<Producto> productos = CargarProductos(rutaArchivoProducto);
 
                         // Create a Pedido object with the extracted data
                         Pedido pedido = new Pedido(idPedido, fechaPedido, cliente, productos, 0);
@@ -183,41 +183,6 @@ public List<Producto> CargarProductos(string rutaArchivoProducto)
         }
         return pedidos;
     }
-
-    private List<Producto> CargarProductosPedido(int idPedido)
-    {
-        List<Producto> productos = new List<Producto>();
-        try
-        {
-            string rutaProductosPedido = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"productos_pedido_{idPedido}.txt");
-            if (File.Exists(rutaProductosPedido))
-            {
-                using (StreamReader lector = new StreamReader(rutaProductosPedido))
-                {
-                    string linea;
-                    while ((linea = lector.ReadLine()) != null)
-                    {
-                        string[] datosProducto = linea.Split(',');
-                        if (datosProducto.Length == 3)
-                        {
-                            // Extract data from the CSV line
-                            int idProducto = int.Parse(datosProducto[0]);
-                            string nombreProducto = datosProducto[1];
-                            double precioProducto = double.Parse(datosProducto[2]);
-
-                            // Create a Producto object with the extracted data
-                            Producto producto = new Producto(idProducto, nombreProducto, precioProducto, "");
-
-                            productos.Add(producto);
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error al cargar productos del pedido: " + ex.Message);
-        }
-        return productos;
-    }
 }
+
+

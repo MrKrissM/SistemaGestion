@@ -1,2 +1,4 @@
-1,guitarra,200,asdasd
-2,teclado,100,asdasdasd
+1,bateria ,300,bateria electronica
+2,teclado,150,teclado de 61 teclas
+3,guitarra,120,guitarra clasica
+4,flauta,100,flauta dulce

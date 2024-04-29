@@ -4,3 +4,4 @@
 6,Samuel,cerro maulen s/n,9342342,samuel@gmail.com
 7,Cesar Miranda,vaqueria 1234,923123232,cesarito@gmail.com
 8,Benjamin ,volcan 123,95465412,benja@gmail.com
+9,Valentina,los notros 1012,92131232,valentina@gmail.com

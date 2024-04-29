@@ -202,7 +202,7 @@ void GenerarReportes(List<Cliente> clientes, List<Pedido> pedidos, List<Producto
         switch (opcionReporte)
         {
             case 1:
-                generadorReportes.GenerarReporteClientes();
+                generadorReportes.GenerarListaClientes();
                 break;
             case 2:
                 generadorReportes.GenerarReporteHistoricoPedidos();

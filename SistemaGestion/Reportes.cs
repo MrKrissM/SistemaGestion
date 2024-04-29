@@ -13,7 +13,7 @@ public class Reportes
         this.productos = productos;
     }
 
-    public void GenerarReporteClientes()
+    public void GenerarListaClientes()
     {
         Console.WriteLine("\nListado de clientes registrados:");
         cliente.VerListaClientes(cliente.clientesExistentes);

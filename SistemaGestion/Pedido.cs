@@ -11,7 +11,6 @@ public class Pedido
     public string rutaArchivoProducto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "productos.txt");
     private Cliente clienteSeleccionado;
     private List<Producto> productoSeleccionado;
-
     public List<Pedido> pedidosExistentes { get; set; }
     public List<Cliente> clientesExistentes { get; set; }
     public List<Producto> productosExistentes { get; set; }
@@ -77,15 +76,15 @@ public class Pedido
                 Console.WriteLine("Índice de producto inválido. Intente nuevamente.");
             }
             
-            int nuevoIdPedido = pedidosExistentes.Count == 0 ? 1 : pedidosExistentes.Max(p => p.IdPedido) + 1;
+            int nuevoIdPedido = pedidos.Count == 0 ? 1 : pedidos.Max(p => p.IdPedido) + 1;
             DateTime fechaPedido = DateTime.Now;
             double totalPedido = CalcularTotal(productoSeleccionado);
 
             Pedido nuevoPedido = new Pedido(nuevoIdPedido, fechaPedido, clienteSeleccionado, productoSeleccionado, totalPedido);
             pedidosExistentes.Add(nuevoPedido);
             pedidos.Clear();
-            pedidos.AddRange(pedidosExistentes);
-            data.GuardarPedidos(pedidos);
+            pedidos.AddRange(pedidos);
+            data.GuardarPedidos(pedidosExistentes);
             Console.WriteLine($"\nPedido creado exitosamente para el cliente {clienteSeleccionado.Nombre}.");
 
         }
